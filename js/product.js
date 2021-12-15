@@ -16,8 +16,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
          * Lien parent/enfant pour ces éléments (img à la balise div qui a la class item__img) / (option à la balise option qui a le contenu SVP, Choisissez une couleur).
          * Ajout de l'attribut src et alt pour l'image. Récupération des données pour chaque attribut correspondant dans data.
          * Modification du contenu de l'élément HTML ayant pour id=title, id=price et id=description. Récupération des données dans data pour l'attribut correspondant.
-         * Création de l'attribut value avec la valeur correspondante (vert ou blanc).
-         * Modification du contenu des éléments HTML <option></option>: L'un vert et l'autre blanc.
+         * Création de l'élément HTML <option></option> avec la liste des couleurs associées au produit
         **/
 
         let itemImg = document.querySelector('.item__img');
@@ -33,16 +32,13 @@ fetch(`http://localhost:3000/api/products/${id}`)
         let descriptionDuProduit = document.querySelector('#description');
             descriptionDuProduit.textContent = data.description;
 
-        let optionCouleurs = document.querySelector('#colors');
-        let optionCouleurVert = document.createElement('option');
-            optionCouleurs.appendChild(optionCouleurVert);
-            optionCouleurVert.setAttribute('value', 'vert');
-            optionCouleurVert.textContent = "Vert";
-        let optionCouleurBlanc = document.createElement('option');
-            optionCouleurs.appendChild(optionCouleurBlanc);
-            optionCouleurBlanc.setAttribute('value', 'blanc');
-            optionCouleurBlanc.textContent = "Blanc";
-
+        let couleurs = document.querySelector('#colors')
+        let choixCouleurs = data.colors;
+            for(i = 0; i < choixCouleurs.length; i++){
+                let optionCouleurs = document.createElement('option');
+                couleurs.appendChild(optionCouleurs);
+                optionCouleurs.textContent = choixCouleurs[i];
+            }
 })
 .catch(function (erreur) {
     console.log("Message d'erreur : \n" + erreur);
