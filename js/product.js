@@ -34,6 +34,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
         let couleurs = document.querySelector('#colors');
         let choixCouleurs = data.colors;
+        console.log(choixCouleurs);
             for(i = 0; i < choixCouleurs.length; i++){
                 let choixCouleur = document.createElement('option');
                 couleurs.appendChild(choixCouleur);

@@ -40,6 +40,7 @@ fetch("http://localhost:3000/api/products")
             elementHTMLP.textContent = data[i].description;
             elementHTMLP.classList.add("productDescription");
     }
+    
     console.log(items);
 })
 .catch(function (erreur) {
