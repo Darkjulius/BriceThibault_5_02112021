@@ -1,0 +1,26 @@
+function montantQuantiteEtTotalPanier(){
+    let prixTotalCalcul = [];
+    for(let prix = 0; prix < recupDonneesDuLocalStorage.length; prix++){
+        let prixProduitDansLePanier = recupDonneesDuLocalStorage[prix].prixProduit;
+            prixTotalCalcul.push(prixProduitDansLePanier);
+        console.log(prixTotalCalcul);
+    }
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const prixTotal = prixTotalCalcul.reduce(reducer,0);
+    console.log(prixTotal);
+    let montantTotalPanier = document.querySelector("#totalPrice");
+    montantTotalPanier.innerHTML = prixTotal;
+
+    let quantiteTotalCalcul = [];
+    for(let quantite = 0; quantite < recupDonneesDuLocalStorage.length; quantite++){
+      let quantiteProduitDansLePanier = recupDonneesDuLocalStorage[quantite].quantiteProduit;
+      quantiteTotalCalcul.push(quantiteProduitDansLePanier);
+      console.log(quantiteTotalCalcul);
+    }
+    const reducerQuantite = (accumulator, cuurentValue) => accumulator + cuurentValue;
+    const quantiteTotal = quantiteTotalCalcul.reduce(reducerQuantite,0);
+    console.log(quantiteTotal);
+    let quantiteTotalPanier = document.querySelector("#totalQuantity");
+    quantiteTotalPanier.innerHTML = quantiteTotal; 
+}
+montantQuantiteEtTotalPanier();

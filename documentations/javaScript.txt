@@ -1,0 +1,29 @@
+script.js
+
+Je stocke mes données dans la variable kanap. Ces données sont stockées dans data (issue) de la promesse.
+Je fais une boucle for pour chaques éléments de Kanap qui proviennent de Data afin de créer mes éléments HTML tel que
+le lien A, article, img, h3, et paragraphe.
+Je fais les liens parents/enfants -> ex: items(parent).appenchild.article(enfant).
+Je crée les attributs
+
+product.js
+J'ai crée 2 fonctions pour gérer la récupération des articles et la gestion du Panier.
+Je stocke les données à traiter "data" dans la constante products.
+En fonction du clic sur le produit, j'affiche l'image du produit, nom du produit, le prix et sa description.
+Je fais les liens parents/enfants. J'ai jaouté les attributs source et alt pour l'image.
+Pour chacune des variables crée (nomDuProduit, prixDuProduit, descriptionDuProduit), je fais un innerHTML en récupérant
+l'information correspondante dans la constante products.
+Je crée une variable choixCouleurs et j'affecte la couleurs correspondante qui est dans data.
+Je fais une boucle for afin que la couleur de chaque produits soit affiché dans la liste déroulante et j'ai fais
+le lien parent/enfant.
+
+La fonction paanier:
+J'ai mis un écouteur d'évenement au clic sur le bouton ajouter et je pose une condition qui est que SI la
+variable nombreProduitSelectionne.value donc la valeur sélectionné par le client est compris entre 0 et 100 ALORS
+J'affecte à ma variable ProduitAjoute -> donc le produit sélectionné par le client (couleur, nombre).
+Je crée un tableau vide qui est affecté à la variable produitSelectionne et SI le localStorage n'est pas vide. Je récupère le contenu
+que je met dans le tableau et je renvoi les nouvelles données (màj de la quantité ou de la couleur) et je le renvoi dans le localStorage.
+
+Si le LocalStorage est vide, j'ajoute les nouvelles données de la variable ProduitAjoute dans le tableau et il va dans le localStorage.
+
+

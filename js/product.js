@@ -1,47 +1,87 @@
 let params = (new URL(window.location)).searchParams;
 let id = params.get("id");
-console.log(`Le paramètre récupéré dans l'URL est ${id}`);
+console.log(id);
 
-fetch(`http://localhost:3000/api/products/${id}`)
-.then(function (reponse) {
-    if (reponse.ok) {
-      return reponse.json();
+const itemImg = document.querySelector('.item__img');
+const nomDuProduit = document.querySelector('#title');
+const prixDuProduit = document.querySelector('#price');
+const descriptionDuProduit = document.querySelector('#description');
+const couleurDuProduit = document.querySelector('#colors');
+const nombreProduitSelectionne = document.querySelector('#quantity');
+
+recupArticles();
+
+function recupArticles(){
+    fetch(`http://localhost:3000/api/products/${id}`)
+    .then(function(response){
+        if (response.ok) {
+            return response.json();
+        }
+    })
+    .then(function(data){
+        const products = data;
+        if (products){
+            traitementData(products);
+        }
+    })
+    .catch(function(erreur){
+        console.log(`Erreur: ${erreur}`);
+    })
+}
+
+function traitementData(products){
+    let imageDuProduit = document.createElement('img');
+    itemImg.appendChild(imageDuProduit);
+        imageDuProduit.src = products.imageUrl;
+        imageDuProduit.alt = products.altTxt;
+
+        nomDuProduit.innerHTML = products.name;
+        prixDuProduit.innerHTML = products.price;
+        descriptionDuProduit.innerHTML = products.description;
+
+    for(let couleur of products.colors){
+        console.table(colors);
+        let choixCouleur = document.createElement("option");
+        couleurDuProduit.appendChild(choixCouleur);
+        choixCouleur.value = couleur;
+        choixCouleur.innerHTML = couleur;
     }
-})
-.then(function (data) {
-    console.log(data);
+    ajoutPanier(products);
+}
 
-        /**
-         * Création des éléments HTML <img> et <option></option>: pour la sélection d'une couleur associé au produit en lui-même.
-         * Lien parent/enfant pour ces éléments.
-         * Ajout de l'attribut src et alt pour l'image. Récupération des données pour chaque attribut correspondant dans data.
-         * Modification du contenu de l'élément HTML ayant pour id=title, id=price et id=description. Récupération des données dans data pour l'attribut correspondant.
-         * Création de l'élément HTML <option></option> avec la liste des couleurs associées au produit
-        **/
+function ajoutPanier(products){
+    const ajoutProduitPanier = document.querySelector('#addToCart');
 
-        let itemImg = document.querySelector('.item__img');
-        let imageDuProduit = document.createElement('img');
-            itemImg.appendChild(imageDuProduit);
-            imageDuProduit.setAttribute('src', data.imageUrl);
-            imageDuProduit.setAttribute('alt', data.altTxt);
+    ajoutProduitPanier.addEventListener("click", function(){
+        if (nombreProduitSelectionne.value > 0 && nombreProduitSelectionne.value <= 100 && nombreProduitSelectionne.value != 0) {
+            let selectionCouleur = couleurDuProduit.value;
+            let selectionQuantite = nombreProduitSelectionne.value;
 
-        let nomDuProduit = document.querySelector('#title');
-            nomDuProduit.textContent = data.name;
-        let prixDuProduit = document.querySelector('#price');
-            prixDuProduit.textContent = data.price;
-        let descriptionDuProduit = document.querySelector('#description');
-            descriptionDuProduit.textContent = data.description;
+            let produitAjoute = {
+                _id: id,
+                couleurProduit: selectionCouleur,
+                quantiteProduit: selectionQuantite,
+                nomProduit: products.name,
+                prixProduit: products.price,
+                descriptionProduit: products.description,
+                imageProduit: products.imageUrl,
+                altImageProduit: products.altTxt
+            };
 
-        let couleurs = document.querySelector('#colors');
-        let choixCouleurs = data.colors;
-        console.log(choixCouleurs);
-            for(i = 0; i < choixCouleurs.length; i++){
-                let choixCouleur = document.createElement('option');
-                couleurs.appendChild(choixCouleur);
-                choixCouleur.textContent = choixCouleurs[i];
+            const popUpConfirmation =() =>{
+                if(window.confirm(`Votre commande est ajoutée au panier \nNom : ${products.name}\nQuantité : ${selectionQuantite}\nCouleur : ${selectionCouleur}.\nPour consulter votre panier, cliquez sur Ok`)){
+                    window.location.href="cart.html";
+                }
             }
-})
-.catch(function (erreur) {
-    console.log("Message d'erreur : \n" + erreur);
-    alert("Une erreur est survenue lors du chargement");
-});
+            
+            let produitSelectionne = [];
+                if (localStorage.getItem("produits") !== null) {
+                    produitSelectionne = JSON.parse(localStorage.getItem("produits"));
+                    popUpConfirmation();
+                }
+            produitSelectionne.push(produitAjoute);
+            localStorage.setItem("produits", JSON.stringify(produitSelectionne));
+            popUpConfirmation();
+        }
+    });
+}
