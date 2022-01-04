@@ -1,26 +1,22 @@
+//Ne pas supprimer la fonction monTotalPanier()
 function montantQuantiteEtTotalPanier(){
-    let prixTotalCalcul = [];
-    for(let prix = 0; prix < recupDonneesDuLocalStorage.length; prix++){
-        let prixProduitDansLePanier = recupDonneesDuLocalStorage[prix].prixProduit;
-            prixTotalCalcul.push(prixProduitDansLePanier);
-        console.log(prixTotalCalcul);
+    let quantiteTotal = document.querySelectorAll(".itemQuantity");
+    let totalQuantite = 0;
+    for(let quantite = 0; quantite < quantiteTotal.length; quantite++){
+        totalQuantite = totalQuantite + quantiteTotal[quantite].valueAsNumber;
+        console.log("Quantite a chaque tour de boucle: " + totalQuantite);
     }
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    const prixTotal = prixTotalCalcul.reduce(reducer,0);
-    console.log(prixTotal);
-    let montantTotalPanier = document.querySelector("#totalPrice");
-    montantTotalPanier.innerHTML = prixTotal;
-
-    let quantiteTotalCalcul = [];
-    for(let quantite = 0; quantite < recupDonneesDuLocalStorage.length; quantite++){
-      let quantiteProduitDansLePanier = recupDonneesDuLocalStorage[quantite].quantiteProduit;
-      quantiteTotalCalcul.push(quantiteProduitDansLePanier);
-      console.log(quantiteTotalCalcul);
+    let quantiteTotalProduit = document.querySelector("#totalQuantity");
+    quantiteTotalProduit.innerHTML = totalQuantite;
+    console.log("Quantite total: "+totalQuantite);
+    let montantTotal = 0;
+    for(let montant = 0; montant <quantiteTotal.length; montant++){
+        //montantTotal = montantTotal + (totalQuantite * recupDonneesDuLocalStorage[montant].prixProduit);NE PAS SUPPRIMER
+        montantTotal = totalQuantite * recupDonneesDuLocalStorage[montant].prixProduit;
+        console.log("Montant a chaque tour de boucle: "+montantTotal);
     }
-    const reducerQuantite = (accumulator, cuurentValue) => accumulator + cuurentValue;
-    const quantiteTotal = quantiteTotalCalcul.reduce(reducerQuantite,0);
-    console.log(quantiteTotal);
-    let quantiteTotalPanier = document.querySelector("#totalQuantity");
-    quantiteTotalPanier.innerHTML = quantiteTotal; 
+    let montantTotalProduit = document.querySelector("#totalPrice");
+    montantTotalProduit.innerHTML = montantTotal;
+    console.log(montantTotal);
 }
 montantQuantiteEtTotalPanier();
