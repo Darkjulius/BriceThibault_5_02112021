@@ -72,7 +72,6 @@ function traitementLocalStorage(){
 }
 traitementLocalStorage();
 
-//Ne pas supprimer la fonction monTotalPanier()
 function montantQuantiteEtTotalPanier(){
     let qteTotal = document.querySelectorAll(".itemQuantity");
     let totalQuantite = 0;
@@ -80,21 +79,28 @@ function montantQuantiteEtTotalPanier(){
         totalQuantite = totalQuantite + qteTotal[qte].valueAsNumber;
         console.log("Qte a chaque tour de boucle: " + totalQuantite);
     }
+
     let quantiteTotalProduit = document.querySelector("#totalQuantity");
     quantiteTotalProduit.innerHTML = totalQuantite;
     console.log("Qte total a la fin de la boucle: " + totalQuantite);
 
-    let totalMontant = 0;
+    const arrayPrix = [];
+    let prix = 0;
     for(let montant = 0; montant < qteTotal.length; montant++){
-        totalMontant = recupDonneesDuLocalStorage[montant].prixProduit;
-        qteUnitaire = recupDonneesDuLocalStorage[montant].quantiteProduit;
-        console.log("Prix unitaire: " + totalMontant);
-        prixTotalPanier = totalMontant * qteUnitaire;
-        console.log(`Prix total d'un produit: ${totalMontant} * ${qteUnitaire} = ${prixTotalPanier}`);
+        let totalMontant = recupDonneesDuLocalStorage[montant].prixProduit;
+        let qteUnitaire = recupDonneesDuLocalStorage[montant].quantiteProduit;
+        prix = totalMontant * qteUnitaire;
+        console.log(`Prix total d'un produit x qté choisie: ${totalMontant} * ${qteUnitaire} = ${prix}`);  
+        arrayPrix.push(prix);
     }
-    let montantTotalProduit = document.querySelector("#totalPrice");
-    let prixTotalProduits = prixTotalPanier * totalQuantite
-    montantTotalProduit.innerHTML = prixTotalProduits;
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    console.log(arrayPrix.reduce(reducer, 0));
+
+    let prixTotal = (arrayPrix.reduce(reducer, 0));
+    let sommeTotalProduit = document.querySelector("#totalPrice");
+    sommeTotalProduit.innerHTML = prixTotal;
+    console.log(`Prix total du panier est de ${prixTotal}`);
 }
 montantQuantiteEtTotalPanier();
 
