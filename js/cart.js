@@ -33,10 +33,14 @@ function traitementLocalStorage(){
                     let articleTitle = document.createElement("h2");
                     divCartItemContentTitlePrice.appendChild(articleTitle);
                     articleTitle.innerHTML = recupDonneesDuLocalStorage[kanap].nomProduit;
+
+                    let couleurArticle = document.createElement("p");
+                    articleTitle.appendChild(couleurArticle);
+                    couleurArticle.innerHTML = recupDonneesDuLocalStorage[kanap].couleurProduit;
         
                     let articlePrix = document.createElement("p");
                     divCartItemContentTitlePrice.appendChild(articlePrix);
-                    articlePrix.innerHTML = recupDonneesDuLocalStorage[kanap].prixProduit + " €";
+                    articlePrix.innerHTML = (recupDonneesDuLocalStorage[kanap].prixProduit * recupDonneesDuLocalStorage[kanap].quantiteProduit) + " €";
                 
                 let divCartItemContentSettings = document.createElement("div");
                 divCartItemContent.appendChild(divCartItemContentSettings);
@@ -93,7 +97,7 @@ function montantQuantiteEtTotalPanier(){
         console.log(`Prix total d'un produit x qté choisie: ${totalMontant} * ${qteUnitaire} = ${prix}`);  
         arrayPrix.push(prix);
     }
-
+    
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     console.log(arrayPrix.reduce(reducer, 0));
 

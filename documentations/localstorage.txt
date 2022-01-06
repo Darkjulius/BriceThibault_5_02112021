@@ -1,4 +1,0 @@
-product.js
-
-ligne 65: localStorage.setItem("produit", JSON.stringify(produitEntregistreDansLeLocalStorage))
-Convertit le produit en format JSON et l'envoi dans la clé "Produit" du localStorage.
