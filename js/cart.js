@@ -40,6 +40,7 @@ function traitementLocalStorage(){
         
                     let articlePrix = document.createElement("p");
                     divCartItemContentTitlePrice.appendChild(articlePrix);
+                    //articlePrix.innerHTML = recupDonneesDuLocalStorage[kanap].prixProduit + " €";
                     articlePrix.innerHTML = (recupDonneesDuLocalStorage[kanap].prixProduit * recupDonneesDuLocalStorage[kanap].quantiteProduit) + " €";
                 
                 let divCartItemContentSettings = document.createElement("div");
