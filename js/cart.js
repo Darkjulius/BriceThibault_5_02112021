@@ -2,6 +2,13 @@ let recupDonneesDuLocalStorage = JSON.parse(localStorage.getItem("produits"));
 console.log(recupDonneesDuLocalStorage);
 const cartItems = document.querySelector("#cart__items");
 
+/**
+ * La fonction traitementLocalStorage() permet d'afficher les articles sélectionnées dans la page product.html dans la page cart.html.
+ * Une ligne affiche "Votre panier est vide si celui-ci l'est grâce à une condition."
+ * Intégration de tous les produits sélectionnés et ajouté dans l'article -> Image, Nom du produit, Couleur du produit, prix total du
+ * produit en fonction de la quantité choisie ou modifiée directement dans le panier, la quantité du produit sélectionné, un bouton supprimer.
+ * Affichage de la quantité totale du panier ainsi que de son prix.
+ */
 function traitementLocalStorage(){
     if (recupDonneesDuLocalStorage === null || recupDonneesDuLocalStorage == 0) {
         const panierVide = `<p>Votre panier est vide</p>`;
@@ -77,6 +84,11 @@ function traitementLocalStorage(){
 }
 traitementLocalStorage();
 
+/**
+ * La fonction montantQuantiteEtTotalPanier() permet de calculer la quantité totale ainsi que la somme totale de tous les produits présent dans le panier.
+ * Un calcul est aussi fait pour un produit en fonction de la quantité sélectionné -> Prix unitaire si un produit mais le produit est sélectionné 2 fois. Le prix
+ * affiché sera le prix unitaire multiplé par la quantité.
+ */
 function montantQuantiteEtTotalPanier(){
     let qteTotal = document.querySelectorAll(".itemQuantity");
     let totalQuantite = 0;
@@ -109,6 +121,11 @@ function montantQuantiteEtTotalPanier(){
 }
 montantQuantiteEtTotalPanier();
 
+/**
+ * La fonction modificationQuantitePanier() permet de modifier la quantité d'un produit présent dans le panier. Il est possible d'ajouter
+ * ou de réduire la quantité d'un ou plusieurs produits. Cette modification implique aussi la modification de la quantité totale du panier et elle influe sur
+ * le prix total du panier.
+ */
 function modificationQuantitePanier(){
     let modifQteProduit = document.querySelectorAll(".itemQuantity");
     let arrayQte = [];
@@ -136,6 +153,9 @@ function modificationQuantitePanier(){
 }
 modificationQuantitePanier()
 
+/**
+ * La fonction suppressionProduitPanier() permet de supprimer un ou plusieurs produits présent dans le panier.
+ */
 function suppressionProduitPanier(){
     let boutonSupprimer = document.querySelectorAll(".deleteItem");
         //console.log(boutonSupprimer);

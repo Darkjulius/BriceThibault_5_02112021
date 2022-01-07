@@ -10,7 +10,7 @@ const couleurDuProduit = document.querySelector('#colors');
 const nombreProduitSelectionne = document.querySelector('#quantity');
 
 /**
- * La fonction recupArticles permet de récupérer l'article de l'API qui a été sélectionné sur la page index.html.
+ * La fonction recupArticles() permet de récupérer l'article de l'API qui a été sélectionné sur la page index.html.
  * Si il y a des données dans la constante data. Exécution de la fonction traitementData.
  */
 function recupArticles(){
@@ -32,10 +32,9 @@ function recupArticles(){
 }
 recupArticles();
 
-
 /**
- * La fonction traitementData(products) affiche les données du produit sélectionné -> Image, Nom du produit, sa description et le choix de la couleur de celui-ci.
- * 
+ * La fonction traitementData(products) affiche les données du produit sélectionné -> 
+ * Image, Nom du produit, sa description et le choix de la couleur de celui-ci.
  */
 function traitementData(products){
     let imageDuProduit = document.createElement('img');
@@ -58,7 +57,11 @@ function traitementData(products){
 }
 
 /**
- * 
+ * La fonction ajoutPanier(products) permet d'ajouter le produit sélectionné avec la couleur choisie et sa quantité
+ * dans le localStorage du navigateur.
+ * Les données injectées dans le localStorage sont analysées car si un produit est déjà à l'intérieur avec la même couleur. Le produit
+ * est ajouté au produit existant. C'est une mise à jour. Si le produit n'est pas présent dans le panier. L'intégration dans le localStorage se fait et
+ * si le panier est vide. Les produits sélectionné sont intégrés dans le localStorage.
  */
 function ajoutPanier(products){
     const ajoutProduitPanier = document.querySelector('#addToCart');
