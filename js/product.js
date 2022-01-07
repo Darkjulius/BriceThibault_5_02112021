@@ -9,8 +9,10 @@ const descriptionDuProduit = document.querySelector('#description');
 const couleurDuProduit = document.querySelector('#colors');
 const nombreProduitSelectionne = document.querySelector('#quantity');
 
-recupArticles();
-
+/**
+ * La fonction recupArticles permet de récupérer l'article de l'API qui a été sélectionné sur la page index.html.
+ * Si il y a des données dans la constante data. Exécution de la fonction traitementData.
+ */
 function recupArticles(){
     fetch(`http://localhost:3000/api/products/${id}`)
     .then(function(response){
@@ -28,7 +30,13 @@ function recupArticles(){
         console.log(`Erreur: ${erreur}`);
     })
 }
+recupArticles();
 
+
+/**
+ * La fonction traitementData(products) affiche les données du produit sélectionné -> Image, Nom du produit, sa description et le choix de la couleur de celui-ci.
+ * 
+ */
 function traitementData(products){
     let imageDuProduit = document.createElement('img');
     itemImg.appendChild(imageDuProduit);
@@ -49,6 +57,9 @@ function traitementData(products){
     ajoutPanier(products);
 }
 
+/**
+ * 
+ */
 function ajoutPanier(products){
     const ajoutProduitPanier = document.querySelector('#addToCart');
 

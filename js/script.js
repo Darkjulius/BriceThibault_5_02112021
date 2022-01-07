@@ -1,4 +1,9 @@
-recupArticles();
+/**
+ * La fonction recupArticles permet de récupérer les articles de l'API afin de pouvoir les afficher sur la page index.HTML.
+ * 1. Récupération des articles avec la requête fetch.
+ * 2. Répartition de ceux-ci dans le DOM.
+ */
+
 function recupArticles(){
     fetch("http://localhost:3000/api/products")
     .then(function(response){
@@ -39,3 +44,4 @@ function recupArticles(){
         console.log(`Erreur: ${erreur}`);
     })
 }
+recupArticles();
