@@ -181,6 +181,11 @@ function suppressionProduitPanier(){
 }
 suppressionProduitPanier();
 
+/**
+ * La fonction traitementFormulaireAvantEnvoi() permet de contrôler les informations saisies par l'utilisateur dans les champs présents.
+ * Si un caractère saisie ne fait pas partie d'une des variables crées ci-dessous -> Un message apparaîtra et il faut corriger afin de pouvoir
+ * envoyer le formulaire.
+ */
 function traitementFormulaireAvantEnvoi(){
     let form = document.querySelector(".cart__order__form");
     let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', "g");

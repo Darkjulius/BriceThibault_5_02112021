@@ -39,8 +39,8 @@ recupArticles();
 function traitementData(products){
     let imageDuProduit = document.createElement('img');
     itemImg.appendChild(imageDuProduit);
-        imageDuProduit.src = products.imageUrl;
-        imageDuProduit.alt = products.altTxt;
+        imageDuProduit.setAttribute("src", products.imageUrl);
+        imageDuProduit.setAttribute("alt", products.altTxt)
 
         nomDuProduit.innerHTML = products.name;
         prixDuProduit.innerHTML = products.price;
