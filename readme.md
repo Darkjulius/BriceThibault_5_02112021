@@ -1,4 +1,4 @@
-# Projet 6 du parcours Développeur web d'OpenClassrooms : Construisez un site e-commerce en JavaScript
+# Projet 5 du parcours Développeur web d'OpenClassrooms : Construisez un site e-commerce en JavaScript
 ***
 ## Compétences évaluées :
 * Interagir avec un web service avec JavaScript
