@@ -183,7 +183,8 @@ suppressionProduitPanier();
 
 /**
  * La fonction traitementFormulaireAvantEnvoi() permet de contrôler les informations saisies par l'utilisateur dans les champs présents.
- * Si un caractère saisie ne fait pas partie d'une des variables crées ci-dessous -> Un message apparaîtra et il faut corriger afin de pouvoir
+ * Si un caractère saisie ne fait pas partie d'une des variables crées et qui est associée à la vérification d'un input adéquate ci-dessous ->
+ * Un message apparaîtra et il faut corriger afin de pouvoir
  * envoyer le formulaire.
  */
 function traitementFormulaireAvantEnvoi(){
