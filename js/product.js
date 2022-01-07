@@ -1,6 +1,5 @@
 let params = (new URL(window.location)).searchParams;
 let id = params.get("id");
-console.log(id);
 
 const itemImg = document.querySelector('.item__img');
 const nomDuProduit = document.querySelector('#title');
@@ -47,7 +46,6 @@ function traitementData(products){
         descriptionDuProduit.innerHTML = products.description;
 
     for(let couleur of products.colors){
-        console.table(colors);
         let choixCouleur = document.createElement("option");
         couleurDuProduit.appendChild(choixCouleur);
         choixCouleur.value = couleur;
@@ -97,16 +95,13 @@ function ajoutPanier(products){
                 //Si le produit commandé est déjà dans le panier
                 if(resultat){
                     let nouvelleQuantite = parseInt(produitAjoute.quantiteProduit) + parseInt(resultat.quantiteProduit);
-                    console.log(nouvelleQuantite);
                     resultat.quantiteProduit = nouvelleQuantite;
                     localStorage.setItem("produits", JSON.stringify(produitDansLeLocalStorage));
-                    console.table(produitDansLeLocalStorage);
                     popUpConfirmation();
                 //Si le produit n'est pas dans le panier
                 }else{
                     produitDansLeLocalStorage.push(produitAjoute);
                     localStorage.setItem("produits", JSON.stringify(produitDansLeLocalStorage));
-                    console.table(produitDansLeLocalStorage);
                     popUpConfirmation();
                 }
             //Si le panier est vide
@@ -114,7 +109,6 @@ function ajoutPanier(products){
                 produitDansLeLocalStorage = [];
                 produitDansLeLocalStorage.push(produitAjoute);
                 localStorage.setItem("produits", JSON.stringify(produitDansLeLocalStorage));
-                console.table(produitDansLeLocalStorage);
                 popUpConfirmation()
             }
         }

@@ -13,7 +13,6 @@ function recupArticles(){
     })
     .then(function(data){
         const products = data;
-        console.log(products);
         for(let kanap in products){
             let items = document.querySelector('#items');
     

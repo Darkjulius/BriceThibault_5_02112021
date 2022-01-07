@@ -1,5 +1,4 @@
 let recupDonneesDuLocalStorage = JSON.parse(localStorage.getItem("produits"));
-console.log(recupDonneesDuLocalStorage);
 const cartItems = document.querySelector("#cart__items");
 
 /**
@@ -94,30 +93,25 @@ function montantQuantiteEtTotalPanier(){
     let totalQuantite = 0;
     for(let qte = 0; qte < qteTotal.length; qte++){
         totalQuantite = totalQuantite + qteTotal[qte].valueAsNumber;
-        console.log("Qte a chaque tour de boucle: " + totalQuantite);
     }
 
     let quantiteTotalProduit = document.querySelector("#totalQuantity");
     quantiteTotalProduit.innerHTML = totalQuantite;
-    console.log("Qte total a la fin de la boucle: " + totalQuantite);
 
     const arrayPrix = [];
     let prix = 0;
     for(let montant = 0; montant < qteTotal.length; montant++){
         let totalMontant = recupDonneesDuLocalStorage[montant].prixProduit;
         let qteUnitaire = recupDonneesDuLocalStorage[montant].quantiteProduit;
-        prix = totalMontant * qteUnitaire;
-        console.log(`Prix total d'un produit x qté choisie: ${totalMontant} * ${qteUnitaire} = ${prix}`);  
+        prix = totalMontant * qteUnitaire; 
         arrayPrix.push(prix);
     }
     
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    console.log(arrayPrix.reduce(reducer, 0));
 
     let prixTotal = (arrayPrix.reduce(reducer, 0));
     let sommeTotalProduit = document.querySelector("#totalPrice");
     sommeTotalProduit.innerHTML = prixTotal;
-    console.log(`Prix total du panier est de ${prixTotal}`);
 }
 montantQuantiteEtTotalPanier();
 
@@ -132,15 +126,12 @@ function modificationQuantitePanier(){
     for(let quantite = 0; quantite < recupDonneesDuLocalStorage.length; quantite++){
         let qteProduit = recupDonneesDuLocalStorage[quantite].quantiteProduit;
         arrayQte.push(qteProduit);
-        console.log(arrayQte);
 
         modifQteProduit[quantite].addEventListener("change", (event) => {
             event.preventDefault();
-            console.log(event);
 
             qteProduit;
             let modifQteValeur = modifQteProduit[quantite].valueAsNumber;
-            console.log(modifQteValeur);
 
             let resultatValeurQteModifie = recupDonneesDuLocalStorage.find((produit) => produit.modifQteProduit !== qteProduit);
             resultatValeurQteModifie.quantiteProduit = modifQteValeur;
@@ -158,19 +149,14 @@ modificationQuantitePanier()
  */
 function suppressionProduitPanier(){
     let boutonSupprimer = document.querySelectorAll(".deleteItem");
-        //console.log(boutonSupprimer);
     for(let suppression = 0; suppression < boutonSupprimer.length; suppression++){
-        //console.log(boutonSupprimer[suppression]);
 
         boutonSupprimer[suppression].addEventListener("click" , (event) => {
             event.preventDefault();
-            //console.log(event);
 
             let suppressionIdProduit = recupDonneesDuLocalStorage[suppression]._id;
-            console.log(suppressionIdProduit);
 
             recupDonneesDuLocalStorage = recupDonneesDuLocalStorage.filter(produit => produit._id !== suppressionIdProduit);
-            console.log(recupDonneesDuLocalStorage);
 
             localStorage.setItem("produits", JSON.stringify(recupDonneesDuLocalStorage));
 
