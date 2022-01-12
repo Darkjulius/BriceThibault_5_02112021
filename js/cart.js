@@ -1,262 +1,356 @@
-let recupDonneesDuLocalStorage = JSON.parse(localStorage.getItem("produits"));
+let produitsDansLeLocalStorage = JSON.parse(localStorage.getItem("produits"));
 const cartItems = document.querySelector("#cart__items");
 
 /**
- * La fonction traitementLocalStorage() permet d'afficher les articles sélectionnées dans la page product.html dans la page cart.html.
- * Une ligne affiche "Votre panier est vide si celui-ci l'est grâce à une condition."
- * Intégration de tous les produits sélectionnés et ajouté dans l'article -> Image, Nom du produit, Couleur du produit, prix total du
- * produit en fonction de la quantité choisie ou modifiée directement dans le panier, la quantité du produit sélectionné, un bouton supprimer.
- * Affichage de la quantité totale du panier ainsi que de son prix.
+ * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION afficherProduitsDuLocalStorage()
+ *
+ *
  */
-function traitementLocalStorage(){
-    if (recupDonneesDuLocalStorage === null || recupDonneesDuLocalStorage == 0) {
-        const panierVide = `<p>Votre panier est vide</p>`;
-        cartItems.innerHTML = panierVide;
-    } else {
-        for (let kanap in recupDonneesDuLocalStorage){
-            let article = document.createElement("article");
-            let dataId = document.getElementsByClassName("data-id");
-                cartItems.appendChild(article);
-                article.classList.add("cart__item", "data-id");
-                dataId = article.setAttribute("data-id", recupDonneesDuLocalStorage[kanap]._id);
-        
-            let divParentImg = document.createElement("div");
-            article.appendChild(divParentImg);
-            divParentImg.classList.add("cart__item__img");
-        
-            let articleImg = document.createElement("img");
-            divParentImg.appendChild(articleImg);
-            articleImg.setAttribute("src", recupDonneesDuLocalStorage[kanap].imageProduit);
-        
-            let divCartItemContent = document.createElement("div");
-            article.appendChild(divCartItemContent);
-            divCartItemContent.classList.add("cart__item__content");
-        
-                let divCartItemContentTitlePrice = document.createElement("div");
-                divCartItemContent.appendChild(divCartItemContentTitlePrice);
-                divCartItemContentTitlePrice.classList.add("cart__item__content__titlePrice");
-        
-                    let articleTitle = document.createElement("h2");
-                    divCartItemContentTitlePrice.appendChild(articleTitle);
-                    articleTitle.innerHTML = recupDonneesDuLocalStorage[kanap].nomProduit;
+function afficherProduitsDuLocalStorage() {
+  if (produitsDansLeLocalStorage === null || produitsDansLeLocalStorage == 0) {
+    const panierVide = `<p>Votre panier est vide</p>`;
+    cartItems.innerHTML = panierVide;
+  } else {
+    for (let produits in produitsDansLeLocalStorage) {
+      let article = document.createElement("article");
+      let dataId = document.getElementsByClassName("data-id");
+      cartItems.appendChild(article);
+      article.classList.add("cart__item", "data-id");
+      dataId = article.setAttribute(
+        "data-id",
+        produitsDansLeLocalStorage[produits]._id
+      );
 
-                    let couleurArticle = document.createElement("p");
-                    articleTitle.appendChild(couleurArticle);
-                    couleurArticle.innerHTML = recupDonneesDuLocalStorage[kanap].couleurProduit;
-        
-                    let articlePrix = document.createElement("p");
-                    divCartItemContentTitlePrice.appendChild(articlePrix);
-                    //articlePrix.innerHTML = recupDonneesDuLocalStorage[kanap].prixProduit + " €";
-                    articlePrix.innerHTML = (recupDonneesDuLocalStorage[kanap].prixProduit * recupDonneesDuLocalStorage[kanap].quantiteProduit) + " €";
-                
-                let divCartItemContentSettings = document.createElement("div");
-                divCartItemContent.appendChild(divCartItemContentSettings);
-                divCartItemContentSettings.classList.add("cart__item__content__settings");
-        
-                    let divCartItemContentSettingsQuantity = document.createElement("div");
-                    divCartItemContentSettings.appendChild(divCartItemContentSettingsQuantity);
-                    divCartItemContentSettingsQuantity.classList.add("cart__item__content__settings__quantity");
-        
-                        let articleQte = document.createElement("p");
-                        divCartItemContentSettingsQuantity.appendChild(articleQte);
-                        articleQte.innerHTML = "Qté : ";
-        
-                        let inputQteValeur = document.createElement("input");
-                        divCartItemContentSettingsQuantity.appendChild(inputQteValeur);
-                        inputQteValeur.value = recupDonneesDuLocalStorage[kanap].quantiteProduit;
-                        inputQteValeur.setAttribute("type", "number");
-                        inputQteValeur.setAttribute("min", "1");
-                        inputQteValeur.setAttribute("max", "100");
-                        inputQteValeur.setAttribute("name", "itemQuantity");
-                        inputQteValeur.classList.add("itemQuantity");
+      let divParentImg = document.createElement("div");
+      article.appendChild(divParentImg);
+      divParentImg.classList.add("cart__item__img");
 
-                    let divCartItemContentSettingsDelete = document.createElement("div");
-                    divCartItemContentSettings.appendChild(divCartItemContentSettingsDelete);
-                    divCartItemContentSettingsDelete.classList.add("cart__item__content__settings__delete");
-        
-                        let suppItem = document.createElement("p");
-                        divCartItemContentSettingsDelete.appendChild(suppItem);
-                        suppItem.classList.add("deleteItem");   
-                        suppItem.textContent = "Supprimer";
-        }
+      let articleImg = document.createElement("img");
+      divParentImg.appendChild(articleImg);
+      articleImg.setAttribute(
+        "src",
+        produitsDansLeLocalStorage[produits].imageProduit
+      );
+
+      let divCartItemContent = document.createElement("div");
+      article.appendChild(divCartItemContent);
+      divCartItemContent.classList.add("cart__item__content");
+
+      let divCartItemContentTitlePrice = document.createElement("div");
+      divCartItemContent.appendChild(divCartItemContentTitlePrice);
+      divCartItemContentTitlePrice.classList.add(
+        "cart__item__content__titlePrice"
+      );
+
+      let articleTitle = document.createElement("h2");
+      divCartItemContentTitlePrice.appendChild(articleTitle);
+      articleTitle.innerHTML = produitsDansLeLocalStorage[produits].nomProduit;
+
+      let couleurArticle = document.createElement("p");
+      articleTitle.appendChild(couleurArticle);
+      couleurArticle.innerHTML =
+        produitsDansLeLocalStorage[produits].couleurProduit;
+
+      let articlePrix = document.createElement("p");
+      divCartItemContentTitlePrice.appendChild(articlePrix);
+      //articlePrix.innerHTML = produitsDansLeLocalStorage[produits].prixProduit + " €";
+      articlePrix.innerHTML =
+        produitsDansLeLocalStorage[produits].prixProduit *
+          produitsDansLeLocalStorage[produits].quantiteProduit +
+        " €";
+
+      let divCartItemContentSettings = document.createElement("div");
+      divCartItemContent.appendChild(divCartItemContentSettings);
+      divCartItemContentSettings.classList.add("cart__item__content__settings");
+
+      let divCartItemContentSettingsQuantity = document.createElement("div");
+      divCartItemContentSettings.appendChild(
+        divCartItemContentSettingsQuantity
+      );
+      divCartItemContentSettingsQuantity.classList.add(
+        "cart__item__content__settings__quantity"
+      );
+
+      let articleQte = document.createElement("p");
+      divCartItemContentSettingsQuantity.appendChild(articleQte);
+      articleQte.innerHTML = "Qté : ";
+
+      let inputQteValeur = document.createElement("input");
+      divCartItemContentSettingsQuantity.appendChild(inputQteValeur);
+      inputQteValeur.value =
+        produitsDansLeLocalStorage[produits].quantiteProduit;
+      inputQteValeur.setAttribute("type", "number");
+      inputQteValeur.setAttribute("min", "1");
+      inputQteValeur.setAttribute("max", "100");
+      inputQteValeur.setAttribute("name", "itemQuantity");
+      inputQteValeur.classList.add("itemQuantity");
+
+      let divCartItemContentSettingsDelete = document.createElement("div");
+      divCartItemContentSettings.appendChild(divCartItemContentSettingsDelete);
+      divCartItemContentSettingsDelete.classList.add(
+        "cart__item__content__settings__delete"
+      );
+
+      let suppItem = document.createElement("p");
+      divCartItemContentSettingsDelete.appendChild(suppItem);
+      suppItem.classList.add("deleteItem");
+      suppItem.textContent = "Supprimer";
     }
+  }
 }
-traitementLocalStorage();
+afficherProduitsDuLocalStorage();
 
 /**
- * La fonction montantQuantiteEtTotalPanier() permet de calculer la quantité totale ainsi que la somme totale de tous les produits présent dans le panier.
- * Un calcul est aussi fait pour un produit en fonction de la quantité sélectionné -> Prix unitaire si un produit mais le produit est sélectionné 2 fois. Le prix
- * affiché sera le prix unitaire multiplé par la quantité.
+ * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION montantEtQuantiteTotalPanier()
+ *
+ *
  */
-function montantQuantiteEtTotalPanier(){
-    let qteTotal = document.querySelectorAll(".itemQuantity");
-    let totalQuantite = 0;
-    for(let qte = 0; qte < qteTotal.length; qte++){
-        totalQuantite = totalQuantite + qteTotal[qte].valueAsNumber;
-    }
+function montantEtQuantiteTotalPanier() {
+  let qteTotal = document.querySelectorAll(".itemQuantity");
+  let totalQuantite = 0;
+  for (let qte = 0; qte < qteTotal.length; qte++) {
+    totalQuantite = totalQuantite + qteTotal[qte].valueAsNumber;
+  }
 
-    let quantiteTotalProduit = document.querySelector("#totalQuantity");
-    quantiteTotalProduit.innerHTML = totalQuantite;
+  let quantiteTotalProduit = document.querySelector("#totalQuantity");
+  quantiteTotalProduit.innerHTML = totalQuantite;
 
-    const arrayPrix = [];
-    let prix = 0;
-    for(let montant = 0; montant < qteTotal.length; montant++){
-        let totalMontant = recupDonneesDuLocalStorage[montant].prixProduit;
-        let qteUnitaire = recupDonneesDuLocalStorage[montant].quantiteProduit;
-        prix = totalMontant * qteUnitaire; 
-        arrayPrix.push(prix);
-    }
-    
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  const arrayPrix = [];
+  let prix = 0;
+  for (let montant = 0; montant < qteTotal.length; montant++) {
+    let totalMontant = produitsDansLeLocalStorage[montant].prixProduit;
+    let qteUnitaire = produitsDansLeLocalStorage[montant].quantiteProduit;
+    prix = totalMontant * qteUnitaire;
+    arrayPrix.push(prix);
+  }
 
-    let prixTotal = (arrayPrix.reduce(reducer, 0));
-    let sommeTotalProduit = document.querySelector("#totalPrice");
-    sommeTotalProduit.innerHTML = prixTotal;
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+  let prixTotal = arrayPrix.reduce(reducer, 0);
+  let sommeTotalProduit = document.querySelector("#totalPrice");
+  sommeTotalProduit.innerHTML = prixTotal;
 }
-montantQuantiteEtTotalPanier();
+montantEtQuantiteTotalPanier();
 
 /**
- * La fonction modificationQuantitePanier() permet de modifier la quantité d'un produit présent dans le panier. Il est possible d'ajouter
- * ou de réduire la quantité d'un ou plusieurs produits. Cette modification implique aussi la modification de la quantité totale du panier et elle influe sur
- * le prix total du panier.
+ * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION modificationQuantitePanier()
+ *
+ *
  */
-function modificationQuantitePanier(){
-    let modifQteProduit = document.querySelectorAll(".itemQuantity");
-    let arrayQte = [];
-    for(let quantite = 0; quantite < recupDonneesDuLocalStorage.length; quantite++){
-        let qteProduit = recupDonneesDuLocalStorage[quantite].quantiteProduit;
-        arrayQte.push(qteProduit);
+function modificationQuantitePanier() {
+  let modifQteProduit = document.querySelectorAll(".itemQuantity");
+  let arrayQte = [];
+  for (
+    let quantite = 0;
+    quantite < produitsDansLeLocalStorage.length;
+    quantite++
+  ) {
+    let qteProduit = produitsDansLeLocalStorage[quantite].quantiteProduit;
+    arrayQte.push(qteProduit);
 
-        modifQteProduit[quantite].addEventListener("change", (event) => {
-            event.preventDefault();
+    modifQteProduit[quantite].addEventListener("change", (event) => {
+      event.preventDefault();
 
-            qteProduit;
-            let modifQteValeur = modifQteProduit[quantite].valueAsNumber;
+      qteProduit;
+      let modifQteValeur = modifQteProduit[quantite].valueAsNumber;
 
-            let resultatValeurQteModifie = recupDonneesDuLocalStorage.find((produit) => produit.modifQteProduit !== qteProduit);
-            resultatValeurQteModifie.quantiteProduit = modifQteValeur;
-            recupDonneesDuLocalStorage[quantite].quantiteProduit = resultatValeurQteModifie.quantiteProduit;
+      let resultatValeurQteModifie = produitsDansLeLocalStorage.find(
+        (produit) => produit.modifQteProduit !== qteProduit
+      );
+      resultatValeurQteModifie.quantiteProduit = modifQteValeur;
+      produitsDansLeLocalStorage[quantite].quantiteProduit =
+        resultatValeurQteModifie.quantiteProduit;
 
-            localStorage.setItem("produits", JSON.stringify(recupDonneesDuLocalStorage));
-            location.reload();
-        })
-    }
+      localStorage.setItem(
+        "produits",
+        JSON.stringify(produitsDansLeLocalStorage)
+      );
+      location.reload();
+    });
+  }
 }
-modificationQuantitePanier()
+modificationQuantitePanier();
 
 /**
- * La fonction suppressionProduitPanier() permet de supprimer un ou plusieurs produits présent dans le panier.
+ * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION suppressionProduitPanier()
+ *
+ *
  */
-function suppressionProduitPanier(){
-    let boutonSupprimer = document.querySelectorAll(".deleteItem");
-    for(let suppression = 0; suppression < boutonSupprimer.length; suppression++){
+function suppressionProduitPanier() {
+  let boutonSupprimer = document.querySelectorAll(".deleteItem");
+  for (
+    let suppression = 0;
+    suppression < boutonSupprimer.length;
+    suppression++
+  ) {
+    boutonSupprimer[suppression].addEventListener("click", (event) => {
+      event.preventDefault();
 
-        boutonSupprimer[suppression].addEventListener("click" , (event) => {
-            event.preventDefault();
+      let suppressionIdProduit = produitsDansLeLocalStorage[suppression]._id;
 
-            let suppressionIdProduit = recupDonneesDuLocalStorage[suppression]._id;
+      produitsDansLeLocalStorage = produitsDansLeLocalStorage.filter(
+        (produit) => produit._id !== suppressionIdProduit
+      );
 
-            recupDonneesDuLocalStorage = recupDonneesDuLocalStorage.filter(produit => produit._id !== suppressionIdProduit);
+      localStorage.setItem(
+        "produits",
+        JSON.stringify(produitsDansLeLocalStorage)
+      );
 
-            localStorage.setItem("produits", JSON.stringify(recupDonneesDuLocalStorage));
-
-            alert("Ce produit a bien été supprimé du panier !");
-            location.reload();
-        })
-    }
+      alert("Ce produit a bien été supprimé du panier !");
+      location.reload();
+    });
+  }
 }
 suppressionProduitPanier();
 
 /**
- * La fonction traitementFormulaireAvantEnvoi() permet de contrôler les informations saisies par l'utilisateur dans les champs présents.
- * Si un caractère saisie ne fait pas partie d'une des variables crées et qui est associée à la vérification d'un input adéquate ci-dessous ->
- * Un message apparaîtra et il faut corriger afin de pouvoir
- * envoyer le formulaire.
+ * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION controleDuFormulaire()
+ *
+ *
  */
-function traitementFormulaireAvantEnvoi(){
-    let form = document.querySelector(".cart__order__form");
-    let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', "g");
-    let nomPrenomVilleRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
-    let addresseRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
+function controleDuFormulaire() {
+  const cartOrderForm = document.querySelector(".cart__order__form");
+  let emailRegExp = new RegExp(
+    "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$"
+  );
+  let adresseRegExp = new RegExp(
+    "^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+"
+  );
+  let nomPrenomVilleRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
 
-    //Ecouteur d'événement de modification du prénom.
-    form.firstName.addEventListener("change", function(){
-        validationFirstName(this);
-    });
+  //Ecoute d'événement sur la modification du champ Prénom.
+  cartOrderForm.firstName.addEventListener("change", function () {
+    validFirstName(this);
+  });
 
-    //Ecouteur d'événement de modification du nom.
-    form.lastName.addEventListener("change", function(){
-        validationLastName(this);
-    });
+  //Ecoute d'événement sur la modification du champ Nom.
+  cartOrderForm.lastName.addEventListener("change", function () {
+    validLastName(this);
+  });
 
-    //Ecouteur d'événement de modification de l'adresse.
-    form.address.addEventListener("change", function(){
-        validationAddress(this);
-    });
+  //Ecoute d'événement sur la modification du champ Adresse.
+  cartOrderForm.address.addEventListener("change", function () {
+    validAddress(this);
+  });
 
-    //Ecouteur d'événement de modification de la Ville.
-    form.city.addEventListener("change", function(){
-        validationCity(this);
-    });
+  //Ecoute d'événement sur la modification du champ Ville.
+  cartOrderForm.city.addEventListener("change", function () {
+    validCity(this);
+  });
 
-    //Ecouteur d'événement de modification de l'email.
-    form.email.addEventListener("change", function(){
-        validationEmail(this);
-    });
+  //Ecoute d'événement sur la modification du champ Email.
+  cartOrderForm.email.addEventListener("change", function () {
+    validEmail(this);
+  });
 
-    //Validation du prénom.
-    const validationFirstName = function(inputFirstName){
-        let firstNameErrorMsg = inputFirstName.nextElementSibling;
+  //validation du PRENOM
+  const validFirstName = function (inputFirstName) {
+    let firstNameErrorMsg = inputFirstName.nextElementSibling;
 
-            if(nomPrenomVilleRegExp.test(inputFirstName.value)){
-                firstNameErrorMsg.innerHTML = "";
-            }else{
-                firstNameErrorMsg.innerHTML = "Veuillez renseigner votre prénom !";
-            }
-    };
+    if (nomPrenomVilleRegExp.test(inputFirstName.value)) {
+      firstNameErrorMsg.innerHTML = "";
+    } else {
+      firstNameErrorMsg.innerHTML = "Format du prénom invalide.";
+    }
+  };
 
-    //Validation du nom.
-    const validationLastName = function(inputLastName){
-        let lastNameErrorMsg = inputLastName.nextElementSibling;
+  //validation du NOM
+  const validLastName = function (inputLastName) {
+    let lastNameErrorMsg = inputLastName.nextElementSibling;
 
-            if(nomPrenomVilleRegExp.test(inputLastName.value)){
-                lastNameErrorMsg.innerHTML = "";
-            }else{
-                lastNameErrorMsg.innerHTML = "Veuillez renseigner votre nom !";
-            }
-    };
+    if (nomPrenomVilleRegExp.test(inputLastName.value)) {
+      lastNameErrorMsg.innerHTML = "";
+    } else {
+      lastNameErrorMsg.innerHTML = "Format du nom invalide.";
+    }
+  };
 
-    //Validation de l'adresse.
-    const validationAddress = function(inputAddress){
-        let addressErrorMsg = inputAddress.nextElementSibling;
+  //validation de l'ADRESSE
+  const validAddress = function (inputAddress) {
+    let addressErrorMsg = inputAddress.nextElementSibling;
 
-        if(addresseRegExp.test(inputAddress.value)){
-            addressErrorMsg.innerHTML = "";
-        }else{
-            addressErrorMsg.innerHTML = "Veuillez renseigner votre adresse !";
-        }
-    };
+    if (adresseRegExp.test(inputAddress.value)) {
+      addressErrorMsg.innerHTML = "";
+    } else {
+      addressErrorMsg.innerHTML = "Format de l'adresse invalide.";
+    }
+  };
 
-    //Validation de la ville
-    const validationCity = function(inputCity){
-        let cityErrorMsg = inputCity.nextElementSibling;
+  //validation de la VILLE
+  const validCity = function (inputCity) {
+    let cityErrorMsg = inputCity.nextElementSibling;
 
-            if(nomPrenomVilleRegExp.test(inputCity.value)){
-                cityErrorMsg.innerHTML = "";
-            }else{
-                cityErrorMsg.innerHTML = "Veuillez renseigner votre ville !";
-            }
-    };
+    if (nomPrenomVilleRegExp.test(inputCity.value)) {
+      cityErrorMsg.innerHTML = "";
+    } else {
+      cityErrorMsg.innerHTML = "Format de la ville invalide.";
+    }
+  };
 
-    //Validation de l'email.
-    const validationEmail = function(inputEmail){
-        let emailErrorMsg = inputEmail.nextElementSibling;
+  //validation de l'EMAIL
+  const validEmail = function (inputEmail) {
+    let emailErrorMsg = inputEmail.nextElementSibling;
 
-        if(emailRegExp.test(inputEmail.value)){
-            emailErrorMsg.innerHTML = "";
-        }else{
-            emailErrorMsg.innerHTML = "Veuillez renseigner votre email !";
-        }
-    };
+    if (emailRegExp.test(inputEmail.value)) {
+      emailErrorMsg.innerHTML = "";
+    } else {
+      emailErrorMsg.innerHTML = "Format de la l'email invalide.";
+    }
+  };
 }
-traitementFormulaireAvantEnvoi();
+controleDuFormulaire();
+
+/**
+ * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION envoiDeLaCommande()
+ *
+ *
+ */
+function envoiDeLaCommande() {
+  let produitsAchetes = [];
+  produitsAchetes.push(produitsDansLeLocalStorage);
+  console.log(produitsAchetes);
+
+  const boutonCommander = document.querySelector("#order");
+
+  boutonCommander.addEventListener("click", (e) => {
+    let inputFirstName = document.querySelector("#firstName");
+    let inputLastName = document.querySelector("#lastName");
+    let inputAdress = document.querySelector("#address");
+    let inputCity = document.querySelector("#city");
+    let inputMail = document.querySelector("#email");
+
+    const order = {
+      client: {
+        prenom: inputFirstName.value,
+        nom: inputLastName.value,
+        adresse: inputAdress.value,
+        ville: inputCity.value,
+        email: inputMail.value,
+      },
+      produits: produitsAchetes,
+    };
+    console.log(order);
+
+    //Création de la requête
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(order),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    fetch("http://localhost:3000/api/products/order", options)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        localStorage.clear();
+        localStorage.setItem("orderId", data.orderId);
+        document.location.href = "confirmation.html";
+      })
+      .catch((erreur) => {
+        alert(`Erreur: ${erreur}`);
+      });
+  });
+}
+envoiDeLaCommande();

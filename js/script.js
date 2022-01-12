@@ -1,46 +1,46 @@
 /**
- * La fonction recupArticles() permet de récupérer les articles de l'API afin de pouvoir les afficher sur la page index.HTML.
- * 1. Récupération des articles avec la requête fetch.
- * 2. Répartition de ceux-ci dans le DOM.
+ * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION affichageDesProduits()
+ *
+ *
  */
 
-function recupArticles(){
-    fetch("http://localhost:3000/api/products")
-    .then(function(response){
-        if (response.ok) {
-            return response.json();
-        }
+function affichageDesProduits() {
+  fetch("http://localhost:3000/api/products")
+    .then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
     })
-    .then(function(data){
-        const products = data;
-        for(let kanap in products){
-            let items = document.querySelector('#items');
-    
-            let lienArticle = document.createElement("a");
-            items.appendChild(lienArticle);
-            lienArticle.href = `product.html?id=${data[kanap]._id}`;
-    
-            let article = document.createElement("article");
-            lienArticle.appendChild(article);
-    
-            let articleImg = document.createElement("img");
-            article.appendChild(articleImg);
-            articleImg.setAttribute('src', data[kanap].imageUrl);
-            articleImg.setAttribute('alt', data[kanap].altTxt);
-    
-            let articleTitle = document.createElement("h3");
-            article.appendChild(articleTitle);
-            articleTitle.innerHTML = data[kanap].name;
-            articleTitle.classList.add("productName");
-    
-            let articleDescription = document.createElement("p");
-            article.appendChild(articleDescription);
-            articleDescription.innerHTML = data[kanap].description;
-            articleDescription.classList.add("productDescription");
-        }
+    .then(function (data) {
+      const listeDesProduits = data;
+      for (let produits in listeDesProduits) {
+        let items = document.querySelector("#items");
+
+        let lienArticle = document.createElement("a");
+        items.appendChild(lienArticle);
+        lienArticle.href = `product.html?id=${listeDesProduits[produits]._id}`;
+
+        let article = document.createElement("article");
+        lienArticle.appendChild(article);
+
+        let articleImg = document.createElement("img");
+        article.appendChild(articleImg);
+        articleImg.setAttribute("src", listeDesProduits[produits].imageUrl);
+        articleImg.setAttribute("alt", listeDesProduits[produits].altTxt);
+
+        let articleTitle = document.createElement("h3");
+        article.appendChild(articleTitle);
+        articleTitle.innerHTML = listeDesProduits[produits].name;
+        articleTitle.classList.add("productName");
+
+        let articleDescription = document.createElement("p");
+        article.appendChild(articleDescription);
+        articleDescription.innerHTML = listeDesProduits[produits].description;
+        articleDescription.classList.add("productDescription");
+      }
     })
-    .catch(function(erreur){
-        console.log(`Erreur: ${erreur}`);
-    })
+    .catch(function (erreur) {
+      console.log(`Erreur: ${erreur}`);
+    });
 }
-recupArticles();
+affichageDesProduits();
