@@ -322,7 +322,7 @@ function envoiDeLaCommande() {
     let inputCity = document.querySelector("#city");
     let inputMail = document.querySelector("#email");
 
-    const order = [
+    /*const order = [
       {
         client: [
           {
@@ -338,7 +338,18 @@ function envoiDeLaCommande() {
         produits: produitsAchetes,
       },
     ];
-    console.log(order);
+    console.log(order);*/
+    const order = [
+      {client: [
+        {prenom: inputFirstName.value,
+        nom: inputLastName.value,
+        adresse: inputAdress.value,
+        ville: inputCity.value,
+        email: inputMail.value}
+      ]},{
+        produits: produitsAchetes
+      }
+    ];
 
     //Création de la requête
     const options = {
