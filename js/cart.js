@@ -316,25 +316,14 @@ function envoiDeLaCommande() {
   const boutonCommander = document.querySelector("#order");
 
   boutonCommander.addEventListener("click", (e) => {
+    e.preventDefault();
     let inputFirstName = document.querySelector("#firstName");
     let inputLastName = document.querySelector("#lastName");
     let inputAdress = document.querySelector("#address");
     let inputCity = document.querySelector("#city");
     let inputMail = document.querySelector("#email");
 
-    const order = [{
-      client:{
-        prenom: inputFirstName,
-        nom: inputLastName,
-        adresse: inputAdress,
-        ville: inputCity,
-        email: inputMail
-      }
-    },
-    {
-      produits: produitsAchetes
-    }
-  ];
+    const order = [{client:{prenom: inputFirstName.value,nom: inputLastName.value,adresse: inputAdress.value,ville: inputCity.value,email: inputMail.value}},{produits: produitsAchetes}];
     console.log(order);
 
     //Création de la requête
@@ -345,11 +334,12 @@ function envoiDeLaCommande() {
         "Content-Type": "application/json",
       },
     };
-    fetch("http://localhost:3000/api/products/order", options)
+    fetch("http://localhost:3000/api/products/order",options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        localStorage.clear();
+        const commande = data;
+        console.log(commande);
+        //localStorage.clear();
         localStorage.setItem("orderId", data.orderId);
         document.location.href = "confirmation.html";
       })
@@ -359,3 +349,15 @@ function envoiDeLaCommande() {
   });
 }
 envoiDeLaCommande();
+
+/**
+ * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION receptionDuNumeroDeCommande()
+ *
+ *
+ */
+// function receptionDuNumeroDeCommande(){
+//   const orderId = document.querySelector('#orderId');
+//   orderId.innerHTML = localStorage.getItem("orderId");
+//   localStorage.clear();
+// }
+// receptionDuNumeroDeCommande();
