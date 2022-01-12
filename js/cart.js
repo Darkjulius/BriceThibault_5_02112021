@@ -330,10 +330,12 @@ function envoiDeLaCommande() {
         adresse: "inputAdress.value",
         ville: "inputCity.value",
         email: "inputMail.value"}
-      ]},{
+      ]},
+      {
         produits: "produitsAchetes"
       }
     ];
+    //cont order = [ {client : [ {prenom : 'test', nom : 'test'} ] }, { produits : idproduit }]
     console.log(order);
 
     //Création de la requête
