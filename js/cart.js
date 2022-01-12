@@ -203,3 +203,162 @@ function suppressionProduitPanier() {
   }
 }
 suppressionProduitPanier();
+
+/**
+ * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION controleDuFormulaire()
+ *
+ *
+ */
+function controleDuFormulaire() {
+  const cartOrderForm = document.querySelector(".cart__order__form");
+  let emailRegExp = new RegExp(
+    "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$"
+  );
+  let adresseRegExp = new RegExp(
+    "^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+"
+  );
+  let nomPrenomVilleRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
+
+  //Ecoute d'événement sur la modification du champ Prénom.
+  cartOrderForm.firstName.addEventListener("change", function () {
+    validFirstName(this);
+  });
+
+  //Ecoute d'événement sur la modification du champ Nom.
+  cartOrderForm.lastName.addEventListener("change", function () {
+    validLastName(this);
+  });
+
+  //Ecoute d'événement sur la modification du champ Adresse.
+  cartOrderForm.address.addEventListener("change", function () {
+    validAddress(this);
+  });
+
+  //Ecoute d'événement sur la modification du champ Ville.
+  cartOrderForm.city.addEventListener("change", function () {
+    validCity(this);
+  });
+
+  //Ecoute d'événement sur la modification du champ Email.
+  cartOrderForm.email.addEventListener("change", function () {
+    validEmail(this);
+  });
+
+  //validation du PRENOM
+  const validFirstName = function (inputFirstName) {
+    let firstNameErrorMsg = inputFirstName.nextElementSibling;
+
+    if (nomPrenomVilleRegExp.test(inputFirstName.value)) {
+      firstNameErrorMsg.innerHTML = "";
+    } else {
+      firstNameErrorMsg.innerHTML = "Format du prénom invalide.";
+    }
+  };
+
+  //validation du NOM
+  const validLastName = function (inputLastName) {
+    let lastNameErrorMsg = inputLastName.nextElementSibling;
+
+    if (nomPrenomVilleRegExp.test(inputLastName.value)) {
+      lastNameErrorMsg.innerHTML = "";
+    } else {
+      lastNameErrorMsg.innerHTML = "Format du nom invalide.";
+    }
+  };
+
+  //validation de l'ADRESSE
+  const validAddress = function (inputAddress) {
+    let addressErrorMsg = inputAddress.nextElementSibling;
+
+    if (adresseRegExp.test(inputAddress.value)) {
+      addressErrorMsg.innerHTML = "";
+    } else {
+      addressErrorMsg.innerHTML = "Format de l'adresse invalide.";
+    }
+  };
+
+  //validation de la VILLE
+  const validCity = function (inputCity) {
+    let cityErrorMsg = inputCity.nextElementSibling;
+
+    if (nomPrenomVilleRegExp.test(inputCity.value)) {
+      cityErrorMsg.innerHTML = "";
+    } else {
+      cityErrorMsg.innerHTML = "Format de la ville invalide.";
+    }
+  };
+
+  FormData;
+
+  //validation de l'EMAIL
+  const validEmail = function (inputEmail) {
+    let emailErrorMsg = inputEmail.nextElementSibling;
+
+    if (emailRegExp.test(inputEmail.value)) {
+      emailErrorMsg.innerHTML = "";
+    } else {
+      emailErrorMsg.innerHTML = "Format de la l'email invalide.";
+    }
+  };
+}
+controleDuFormulaire();
+
+/**
+ * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION envoiDeLaCommande()
+ *
+ *
+ */
+function envoiDeLaCommande() {
+  let produitsAchetes = [];
+  produitsAchetes.push(produitsDansLeLocalStorage);
+  console.log(produitsAchetes);
+
+  const boutonCommander = document.querySelector("#order");
+
+  boutonCommander.addEventListener("click", (e) => {
+    let inputFirstName = document.querySelector("#firstName");
+    let inputLastName = document.querySelector("#lastName");
+    let inputAdress = document.querySelector("#address");
+    let inputCity = document.querySelector("#city");
+    let inputMail = document.querySelector("#email");
+
+    const order = [
+      {
+        client: [
+          {
+            prenom: inputFirstName.value,
+            nom: inputLastName.value,
+            adresse: inputAdress.value,
+            ville: inputCity.value,
+            email: inputMail.value,
+          },
+        ],
+      },
+      {
+        produits: produitsAchetes,
+      },
+    ];
+    console.log(order);
+
+    //Création de la requête
+    const options = {
+      method: "POST",
+      body: JSON.stringify(order),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    fetch("http://localhost:3000/api/products/order", options)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        localStorage.clear();
+        localStorage.setItem("orderId", data.orderId);
+        document.location.href = "confirmation.html";
+      })
+      .catch((erreur) => {
+        alert(`Erreur: ${erreur}`);
+      });
+  });
+}
+envoiDeLaCommande();
