@@ -322,34 +322,19 @@ function envoiDeLaCommande() {
     let inputCity = document.querySelector("#city");
     let inputMail = document.querySelector("#email");
 
-    /*const order = [
-      {
-        client: [
-          {
-            prenom: inputFirstName.value,
-            nom: inputLastName.value,
-            adresse: inputAdress.value,
-            ville: inputCity.value,
-            email: inputMail.value,
-          },
-        ],
-      },
-      {
-        produits: produitsAchetes,
-      },
-    ];
-    console.log(order);*/
+    
     const order = [
       {client: [
-        {prenom: inputFirstName.value,
-        nom: inputLastName.value,
-        adresse: inputAdress.value,
-        ville: inputCity.value,
-        email: inputMail.value}
+        {prenom: "inputFirstName.value",
+        nom: "inputLastName.value",
+        adresse: "inputAdress.value",
+        ville: "inputCity.value",
+        email: "inputMail.value"}
       ]},{
-        produits: produitsAchetes
+        produits: "produitsAchetes"
       }
     ];
+    console.log(order);
 
     //Création de la requête
     const options = {
