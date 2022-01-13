@@ -344,7 +344,7 @@ controleDuFormulaire();
         const commande = data;
         console.log(commande);
         localStorage.setItem("orderId", commande.orderId);
-        document.location.href = "confirmation.html";
+        document.location.href = `confirmation.html?id=${commande.orderId}`;
       })
       .catch((erreur) => {
         alert(`Erreur: ${erreur}`);
