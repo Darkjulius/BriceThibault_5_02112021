@@ -331,20 +331,20 @@ controleDuFormulaire();
     const order = {contacts, produitsAchetes};
 
     //Création de la requête
-    const options = {
-      method: "POST",
-      body: JSON.stringify(order),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+     const options = {
+       method: "POST",
+       body: JSON.stringify(order),
+       headers: {
+         "Content-Type": "application/json",
+       },
+     };
+    
     fetch("http://localhost:3000/api/products/order", options)
       .then((response) => response.json())
       .then((data) => {
-        const commande = data;
-        console.log(commande);
+        console.log(data);
         localStorage.setItem("orderId", commande.orderId);
-        document.location.href = `confirmation.html?id=${commande.orderId}`;
+        //document.location.href = `confirmation.html?id=${commande.orderId}`;
       })
       .catch((erreur) => {
         alert(`Erreur: ${erreur}`);
