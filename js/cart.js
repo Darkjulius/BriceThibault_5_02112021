@@ -323,8 +323,12 @@ controleDuFormulaire();
     let inputCity = document.querySelector("#city");
     let inputMail = document.querySelector("#email");
 
-    const order = [{client:{prenom: inputFirstName.value,nom: inputLastName.value,adresse: inputAdress.value,ville: inputCity.value,email: inputMail.value}},{produits: produitsAchetes}];
-    console.log(order);
+    // const order = [{client:{prenom: inputFirstName.value,nom: inputLastName.value,adresse: inputAdress.value,ville: inputCity.value,email: inputMail.value}},{produits: produitsAchetes}];
+    // console.log(order);
+
+    const contacts = {client:{prenom: inputFirstName.value,nom: inputLastName.value,adresse: inputAdress.value,ville: inputCity.value,email: inputMail.value}};
+
+    const order = {contacts, produitsAchetes};
 
     //Création de la requête
     const options = {
@@ -340,7 +344,7 @@ controleDuFormulaire();
         const commande = data;
         console.log(commande);
         localStorage.setItem("orderId", commande.orderId);
-        document.location.href = `confirmation.html?id=${commande.orderId}`;
+        document.location.href = "confirmation.html";
       })
       .catch((erreur) => {
         alert(`Erreur: ${erreur}`);
