@@ -308,7 +308,7 @@ controleDuFormulaire();
  *
  *
  */
-function envoiDeLaCommande() {
+ function envoiDeLaCommande() {
   let produitsAchetes = [];
   produitsAchetes.push(produitsDansLeLocalStorage);
   console.log(produitsAchetes);
@@ -334,14 +334,13 @@ function envoiDeLaCommande() {
         "Content-Type": "application/json",
       },
     };
-    fetch("http://localhost:3000/api/products/order",options)
+    fetch("http://localhost:3000/api/products/order", options)
       .then((response) => response.json())
       .then((data) => {
         const commande = data;
         console.log(commande);
-        //localStorage.clear();
-        localStorage.setItem("orderId", data.orderId);
-        document.location.href = "confirmation.html";
+        localStorage.setItem("orderId", commande.orderId);
+        document.location.href = `confirmation.html?id=${commande.orderId}`;
       })
       .catch((erreur) => {
         alert(`Erreur: ${erreur}`);
@@ -350,14 +349,3 @@ function envoiDeLaCommande() {
 }
 envoiDeLaCommande();
 
-/**
- * EXPLIQUER LE FONCTIONNEMENT DE LA FONCTION receptionDuNumeroDeCommande()
- *
- *
- */
-// function receptionDuNumeroDeCommande(){
-//   const orderId = document.querySelector('#orderId');
-//   orderId.innerHTML = localStorage.getItem("orderId");
-//   localStorage.clear();
-// }
-// receptionDuNumeroDeCommande();
