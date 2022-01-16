@@ -284,7 +284,6 @@ function envoieDeLaCommande(){
     for(i = 0; i<produitsDansLeLocalStorage.length; i++){
         products.push(produitsDansLeLocalStorage[i].idProduit)
     };
-
     console.log((products));
 
     const boutonCommander = document.getElementById("order");
