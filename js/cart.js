@@ -167,9 +167,9 @@ function suppressionProduitPanier() {
         boutonSupprimer[suppression].addEventListener("click", (event) => {
             event.preventDefault();
 
-            let suppressionIdProduit = produitsDansLeLocalStorage[suppression]._id;
+            let suppressionIdProduit = produitsDansLeLocalStorage[suppression].idProduit;
 
-            produitsDansLeLocalStorage = produitsDansLeLocalStorage.filter((produit) => produit._id !== suppressionIdProduit);
+            produitsDansLeLocalStorage = produitsDansLeLocalStorage.filter((produit) => produit.idProduit !== suppressionIdProduit);
 
             localStorage.setItem("produits", JSON.stringify(produitsDansLeLocalStorage));
 
@@ -275,13 +275,17 @@ function controleDuFormulaire() {
 controleDuFormulaire();
 
 /**
- * La fonction envoieDeLaCommande() permet 
+ * La fonction envoieDeLaCommande() permet d'envoyer la commande de l'utilisateur en prenant en compte un paramètre important qui est l'idProduit. Cet idProduit permet
+ * l'envoi de la requête ainsi que le contact.
  */
 function envoieDeLaCommande(){
 
-    let produitsAchetes = [];
-    produitsAchetes.push(produitsDansLeLocalStorage);
-    console.log((produitsAchetes));
+    let products = [];
+    for(i = 0; i<produitsDansLeLocalStorage.length; i++){
+        products.push(produitsDansLeLocalStorage[i].idProduit)
+    };
+
+    console.log((products));
 
     const boutonCommander = document.getElementById("order");
 
@@ -294,30 +298,32 @@ function envoieDeLaCommande(){
         const inputCity = document.getElementById("city");
         const inputMail = document.getElementById("email");
 
-        const contacts = {
-            client: {
-              prenom: inputFirstName.value,
-              nom: inputLastName.value,
-              adresse: inputAdress.value,
-              ville: inputCity.value,
+        const contact = {
+              firstName: inputFirstName.value,
+              lastName: inputLastName.value,
+              address: inputAdress.value,
+              city: inputCity.value,
               email: inputMail.value,
-            },
-        };
-
-        const order = { contacts, produitsAchetes };
+            }
+        
+        const order = { contact, products };
 
         //Création de la requête
-
-        fetch("http://localhost:3000/api/products/order", {
-            method: 'POST',
+        
+        const requete = fetch("http://localhost:3000/api/products/order", {
+            method: "POST",
             body: JSON.stringify(order),
-            headers: {'Content-type': 'application/json; charset=UTF-8'},
+            headers: {
+                'Content-type': 'application/json'
+            },
         })
+        //console.table(requete)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
-            localStorage.setItem("order", data.order);
-            document.location.href = `confirmation.html?id=${data.order}`;
+            //console.table(data);
+            localStorage.setItem("orderId", data.orderId);
+            document.location.href = `confirmation.html?id=${data.orderId}`;
+
         })
         .catch((erreur) => {
             alert(`Erreur: ${erreur}`);
