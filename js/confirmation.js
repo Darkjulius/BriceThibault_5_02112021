@@ -3,8 +3,8 @@
  * Toute trace de la commande est supprimée du localStorage par mesure de sécurité.
  */
 function receptionDuNumeroDeCommande() {
-    const orderId = document.getElementById("orderId");
-    orderId.innerHTML = localStorage.getItem("orderId");
-    localStorage.clear();
-  }
-  receptionDuNumeroDeCommande();
+  const orderId = document.getElementById("orderId");
+  orderId.innerHTML = localStorage.getItem("orderId");
+  localStorage.clear();
+}
+receptionDuNumeroDeCommande();

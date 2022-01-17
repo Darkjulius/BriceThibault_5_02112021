@@ -278,10 +278,10 @@ controleDuFormulaire();
  * La fonction envoieDeLaCommande() permet d'envoyer la commande de l'utilisateur en prenant en compte un paramètre important qui est l'idProduit. Cet idProduit permet
  * l'envoi de la requête ainsi que le contact.
  */
-function envoieDeLaCommande(){
+function envoieDeLaCommande() {
 
     let products = [];
-    for(i = 0; i<produitsDansLeLocalStorage.length; i++){
+    for (i = 0; i < produitsDansLeLocalStorage.length; i++) {
         products.push(produitsDansLeLocalStorage[i].idProduit)
     };
     console.log((products));
@@ -298,17 +298,17 @@ function envoieDeLaCommande(){
         const inputMail = document.getElementById("email");
 
         const contact = {
-              firstName: inputFirstName.value,
-              lastName: inputLastName.value,
-              address: inputAdress.value,
-              city: inputCity.value,
-              email: inputMail.value,
-            }
-        
+            firstName: inputFirstName.value,
+            lastName: inputLastName.value,
+            address: inputAdress.value,
+            city: inputCity.value,
+            email: inputMail.value,
+        }
+
         const order = { contact, products };
 
         //Création de la requête
-        
+
         const requete = fetch("http://localhost:3000/api/products/order", {
             method: "POST",
             body: JSON.stringify(order),
@@ -316,17 +316,17 @@ function envoieDeLaCommande(){
                 'Content-type': 'application/json'
             },
         })
-        //console.table(requete)
-        .then((response) => response.json())
-        .then((data) => {
-            //console.table(data);
-            localStorage.setItem("orderId", data.orderId);
-            document.location.href = `confirmation.html?id=${data.orderId}`;
+            //console.table(requete)
+            .then((response) => response.json())
+            .then((data) => {
+                //console.table(data);
+                localStorage.setItem("orderId", data.orderId);
+                document.location.href = `confirmation.html?id=${data.orderId}`;
 
-        })
-        .catch((erreur) => {
-            alert(`Erreur: ${erreur}`);
-        });
+            })
+            .catch((erreur) => {
+                alert(`Erreur: ${erreur}`);
+            });
     });
 }
 envoieDeLaCommande();
