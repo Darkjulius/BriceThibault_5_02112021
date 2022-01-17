@@ -27,7 +27,7 @@ function afficherProduitsDuLocalStorage() {
 
             const articleImg = document.createElement("img");
             divParentImg.appendChild(articleImg);
-            articleImg.src = produitsDansLeLocalStorage[produits].image;
+            articleImg.setAttribute("src", produitsDansLeLocalStorage[produits].image);
 
             const divCartItemContent = document.createElement("div");
             article.appendChild(divCartItemContent);
@@ -167,13 +167,17 @@ function suppressionProduitPanier() {
         boutonSupprimer[suppression].addEventListener("click", (event) => {
             event.preventDefault();
 
-            let suppressionIdProduit = produitsDansLeLocalStorage[suppression].idProduit;
+            // let suppressionIdProduit = produitsDansLeLocalStorage[suppression].idProduit;
 
-            produitsDansLeLocalStorage = produitsDansLeLocalStorage.filter((produit) => produit.idProduit !== suppressionIdProduit);
+            // produitsDansLeLocalStorage = produitsDansLeLocalStorage.filter((produit) => produit.idProduit !== suppressionIdProduit);
+
+            let suppressionProduits = produitsDansLeLocalStorage[suppression].couleur;
+
+            produitsDansLeLocalStorage = produitsDansLeLocalStorage.filter((produit) => produit.couleur !== suppressionProduits);
 
             localStorage.setItem("produits", JSON.stringify(produitsDansLeLocalStorage));
 
-            alert("Ce produit a bien été supprimé du panier !");
+            alert("Vous allez supprimer ce produit de votre panier. Valider votre choix en cliquant sur Ok !");
             location.reload();
         });
     }
@@ -224,7 +228,7 @@ function controleDuFormulaire() {
         if (nomPrenomVilleRegExp.test(inputFirstName.value)) {
             firstNameErrorMsg.innerHTML = "";
         } else {
-            firstNameErrorMsg.innerHTML = "Format du prénom invalide.";
+            firstNameErrorMsg.innerHTML = "Format du prénom incorrect.";
         }
     };
 
@@ -235,7 +239,7 @@ function controleDuFormulaire() {
         if (nomPrenomVilleRegExp.test(inputLastName.value)) {
             lastNameErrorMsg.innerHTML = "";
         } else {
-            lastNameErrorMsg.innerHTML = "Format du nom invalide.";
+            lastNameErrorMsg.innerHTML = "Format du nom incorrect.";
         }
     };
 
@@ -246,7 +250,7 @@ function controleDuFormulaire() {
         if (adresseRegExp.test(inputAddress.value)) {
             addressErrorMsg.innerHTML = "";
         } else {
-            addressErrorMsg.innerHTML = "Format de l'adresse invalide.";
+            addressErrorMsg.innerHTML = "Format de l'adresse incorrect.";
         }
     };
 
@@ -257,7 +261,7 @@ function controleDuFormulaire() {
         if (nomPrenomVilleRegExp.test(inputCity.value)) {
             cityErrorMsg.innerHTML = "";
         } else {
-            cityErrorMsg.innerHTML = "Format de la ville invalide.";
+            cityErrorMsg.innerHTML = "Format de la ville incorrect.";
         }
     };
 
@@ -268,7 +272,7 @@ function controleDuFormulaire() {
         if (emailRegExp.test(inputEmail.value)) {
             emailErrorMsg.innerHTML = "";
         } else {
-            emailErrorMsg.innerHTML = "Format de la l'email invalide.";
+            emailErrorMsg.innerHTML = "Format de la l'email incorrect.";
         }
     };
 }

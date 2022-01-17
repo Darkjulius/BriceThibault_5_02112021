@@ -1,5 +1,7 @@
 let params = new URL(window.location).searchParams;
+console.log(params);
 let id = params.get("id");
+console.log(id);
 
 const itemImg = document.querySelector(".item__img");
 const titleProduit = document.getElementById("title");
@@ -46,8 +48,8 @@ function traitementData(produitSelectionne) {
 
     const imageDuProduit = document.createElement("img");
     itemImg.appendChild(imageDuProduit);
-    imageDuProduit.src = produitSelectionne.imageUrl;
-    imageDuProduit.alt = produitSelectionne.altTxt;
+    imageDuProduit.setAttribute("src", produitSelectionne.imageUrl);
+    imageDuProduit.setAttribute("alt", produitSelectionne.altTxt);
 
     titleProduit.innerHTML = produitSelectionne.name;
     priceProduit.innerHTML = produitSelectionne.price;
@@ -92,7 +94,7 @@ function ajoutDuProduitDansPanier(produitSelectionne) {
             console.log(produitsAjouteDansPanier);
 
             let produitDansLeLocalStorage = JSON.parse(localStorage.getItem("produits"));
-
+            
             const lienPageCart = window.location.href = "cart.html";
 
             //Import du produit dans le localStorage
@@ -118,7 +120,6 @@ function ajoutDuProduitDansPanier(produitSelectionne) {
                 localStorage.setItem("produits", JSON.stringify(produitDansLeLocalStorage));
                 lienPageCart
             }
-
         }
     });
 }
