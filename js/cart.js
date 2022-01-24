@@ -141,8 +141,10 @@ function modificationQuantitePanier() {
 
             qteProduit;
             let modifQteValeur = modifQteProduit[quantite].valueAsNumber;
+            console.log(modifQteValeur);
 
             let resultatValeurQteModifie = produitsDansLeLocalStorage.find((produit) => produit.modifQteProduit !== qteProduit);
+            console.log(resultatValeurQteModifie);
 
             resultatValeurQteModifie.quantite = modifQteValeur;
             produitsDansLeLocalStorage[quantite].quantite = resultatValeurQteModifie.quantite;
